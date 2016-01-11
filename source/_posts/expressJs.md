@@ -11,4 +11,4 @@ tags: 前端
 
   npm install #安装express依赖包
 
-  npm start
+  npm start 或者 DEBUG=myapp npm start
