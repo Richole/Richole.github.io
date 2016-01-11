@@ -3,27 +3,48 @@
 <head>
   <meta charset="utf-8">
   
-  <title>seajs | Richole&#39;s Blog</title>
+  <title>hexo备份整个blog | Richole&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="//exports 暴露引入
-//require 引入依赖
-//模块内的引入依赖和暴露接口define(function (require, exports) {  var util = require(‘./util.js’);  exports.init = function () {    // Todo:  }});
-//页面引入模块seajs.use(‘dialog’, function">
+  <meta name="description" content="通过hexo新建了一个blog之后，github上面只有blog的静态文件，若要备份整个blog的项目。可通过以下步奏
+
+git clone … #先拉blog代码
+
+git branch hexo #新建一个hexo分支 
+
+git checkout hexo #切换hexo分支
+
+清除项目文件，并将全部blog文件复制进来
+
+git add -A, git commit -m ‘…’, git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="seajs">
-<meta property="og:url" content="http://Richole.github.io/2016/01/11/seajs/index.html">
+<meta property="og:title" content="hexo备份整个blog">
+<meta property="og:url" content="http://Richole.github.io/2016/01/11/hexo/index.html">
 <meta property="og:site_name" content="Richole's Blog">
-<meta property="og:description" content="//exports 暴露引入
-//require 引入依赖
-//模块内的引入依赖和暴露接口define(function (require, exports) {  var util = require(‘./util.js’);  exports.init = function () {    // Todo:  }});
-//页面引入模块seajs.use(‘dialog’, function">
-<meta property="og:updated_time" content="2016-01-11T08:04:46.099Z">
+<meta property="og:description" content="通过hexo新建了一个blog之后，github上面只有blog的静态文件，若要备份整个blog的项目。可通过以下步奏
+
+git clone … #先拉blog代码
+
+git branch hexo #新建一个hexo分支 
+
+git checkout hexo #切换hexo分支
+
+清除项目文件，并将全部blog文件复制进来
+
+git add -A, git commit -m ‘…’, git">
+<meta property="og:updated_time" content="2016-01-11T08:25:31.447Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="seajs">
-<meta name="twitter:description" content="//exports 暴露引入
-//require 引入依赖
-//模块内的引入依赖和暴露接口define(function (require, exports) {  var util = require(‘./util.js’);  exports.init = function () {    // Todo:  }});
-//页面引入模块seajs.use(‘dialog’, function">
+<meta name="twitter:title" content="hexo备份整个blog">
+<meta name="twitter:description" content="通过hexo新建了一个blog之后，github上面只有blog的静态文件，若要备份整个blog的项目。可通过以下步奏
+
+git clone … #先拉blog代码
+
+git branch hexo #新建一个hexo分支 
+
+git checkout hexo #切换hexo分支
+
+清除项目文件，并将全部blog文件复制进来
+
+git add -A, git commit -m ‘…’, git">
   
     <link rel="alternative" href="/atom.xml" title="Richole&#39;s Blog" type="application/atom+xml">
   
@@ -69,9 +90,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-seajs" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-hexo" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/01/11/seajs/" class="article-date">
+    <a href="/2016/01/11/hexo/" class="article-date">
   <time datetime="2016-01-11T03:26:10.000Z" itemprop="datePublished">2016-01-11</time>
 </a>
     
@@ -83,7 +104,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      seajs
+      hexo备份整个blog
     </h1>
   
 
@@ -91,18 +112,36 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>//exports 暴露引入</p>
-<p>//require 引入依赖</p>
-<p>//模块内的引入依赖和暴露接口<br>define(function (require, exports) {<br>  var util = require(‘./util.js’);<br>  exports.init = function () {<br>    // Todo:<br>  }<br>});</p>
-<p>//页面引入模块<br>seajs.use(‘dialog’, function (Dialog) {<br>  // Todo: Dialog.init();<br>});</p>
+        <p>通过hexo新建了一个blog之后，github上面只有blog的静态文件，若要备份整个blog的项目。可通过以下步奏</p>
+<ol>
+<li><p>git clone … #先拉blog代码</p>
+</li>
+<li><p>git branch hexo #新建一个hexo分支 </p>
+</li>
+<li><p>git checkout hexo #切换hexo分支</p>
+</li>
+<li><p>清除项目文件，并将全部blog文件复制进来</p>
+</li>
+<li><p>git add -A, git commit -m ‘…’, git push origin hexo:hexo</p>
+</li>
+<li><p>github设置hexo为默认分支</p>
+</li>
+</ol>
+<p>提交blog代码有两个步奏</p>
+<ol>
+<li><p>若要重新部署Blog, hexo g, hexo d #hexo 默认推送代码到master，可在_config.yml更改</p>
+</li>
+<li><p>若要备份Blog, git add -A, git commit -m ‘..’, git push origin hexo</p>
+</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Richole.github.io/2016/01/11/seajs/" data-id="cij9pfxxs0007omjxl37i1seh" class="article-share-link">Share</a>
+      <a data-url="http://Richole.github.io/2016/01/11/hexo/" data-id="cij9pfxxz000comjxhk2kb8fy" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
 
     </footer>
   </div>
@@ -110,19 +149,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/01/11/浏览器兼容性问题/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/01/11/rails/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          浏览器兼容性问题
+          rails 环境安装手册
         
       </div>
     </a>
   
   
-    <a href="/2016/01/11/rails/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/01/07/阅读信息分享系统开发计划与流程/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">rails 环境安装手册</div>
+      <div class="article-nav-title">阅读信息分享系统开发计划与流程</div>
     </a>
   
 </nav>
