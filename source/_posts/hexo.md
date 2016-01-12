@@ -15,6 +15,11 @@ tags: [hexo, git]
 
   6. github设置hexo为默认分支
 
+  7. touch gitignore #新建.gitignore
+
+  8. 设置gitignore ,ignore(/node_modules/, /.deploy_git/)
+
+  9. hexo clean #重置hexo
 提交blog代码有两个步奏
   
   1. 若要重新部署Blog, hexo g, hexo d #hexo 默认推送代码到master，可在_config.yml更改
