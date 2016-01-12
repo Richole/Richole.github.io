@@ -5,7 +5,7 @@ tags: 前端
  # 安装express
 
   sudo npm install express express-generator -g #安装express
-  
+
   express readToShareSystem #创建express项目
 
   cd readToShareSystem
