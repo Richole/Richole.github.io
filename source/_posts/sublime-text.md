@@ -14,7 +14,7 @@ tags: 环境配置
       sudo aptitude install libgtk2.0-dev
 
   4.  保存下面的代码到文件sublime_imfix.c(位于~目录)
-  ``` bash
+  ``` c
       #include <gtk/gtkimcontext.h>
       void gtk_im_context_set_client_window (GtkIMContext *context,
                GdkWindow    *window)

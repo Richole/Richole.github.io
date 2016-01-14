@@ -19,7 +19,7 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
 sudo apt-get install aptitude #安装aptitude解决依赖冲突问题
 
 sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存在依赖冲突sudo aptitude install build-essentialsudo aptitude in">
-<meta property="og:updated_time" content="2016-01-12T09:25:14.497Z">
+<meta property="og:updated_time" content="2016-01-14T07:14:32.428Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决ubuntu sublime text 中文问题">
 <meta name="twitter:description" content="首先要安装好linux搜狗输入法
@@ -101,7 +101,7 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
 <li><p>sudo apt-get install build-essential<br>sudo apt-get install libgtk2.0-dev<br>如果存在依赖冲突<br>sudo aptitude install build-essential<br>sudo aptitude install libgtk2.0-dev</p>
 </li>
 <li><p>保存下面的代码到文件sublime_imfix.c(位于~目录)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include &lt;gtk/gtkimcontext.h&gt;</span></span><br><span class="line">void gtk_im_context_<span class="built_in">set</span>_client_window (GtkIMContext *context,</span><br><span class="line">         GdkWindow    *window)</span><br><span class="line">&#123;</span><br><span class="line"> GtkIMContextClass *klass;</span><br><span class="line"> g_<span class="built_in">return</span>_<span class="keyword">if</span>_fail (GTK_IS_IM_CONTEXT (context));</span><br><span class="line"> klass = GTK_IM_CONTEXT_GET_CLASS (context);</span><br><span class="line"> <span class="keyword">if</span> (klass-&gt;<span class="built_in">set</span>_client_window)</span><br><span class="line">   klass-&gt;<span class="built_in">set</span>_client_window (context, window);</span><br><span class="line"> g_object_<span class="built_in">set</span>_data(G_OBJECT(context),<span class="string">"window"</span>,window);</span><br><span class="line"> <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</span><br><span class="line">   <span class="built_in">return</span>;</span><br><span class="line"> int width = gdk_window_get_width(window);</span><br><span class="line"> int height = gdk_window_get_height(window);</span><br><span class="line"> <span class="keyword">if</span>(width != <span class="number">0</span> &amp;&amp; height !=<span class="number">0</span>)</span><br><span class="line">   gtk_im_context_focus_<span class="keyword">in</span>(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;gtk/gtkimcontext.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gtk_im_context_set_client_window</span> <span class="params">(GtkIMContext *context,</span><br><span class="line">         GdkWindow    *window)</span></span><br><span class="line"></span>&#123;</span><br><span class="line"> GtkIMContextClass *klass;</span><br><span class="line"> g_return_if_fail (GTK_IS_IM_CONTEXT (context));</span><br><span class="line"> klass = GTK_IM_CONTEXT_GET_CLASS (context);</span><br><span class="line"> <span class="keyword">if</span> (klass-&gt;set_client_window)</span><br><span class="line">   klass-&gt;set_client_window (context, window);</span><br><span class="line"> g_object_set_data(G_OBJECT(context),<span class="string">"window"</span>,window);</span><br><span class="line"> <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</span><br><span class="line">   <span class="keyword">return</span>;</span><br><span class="line"> <span class="keyword">int</span> width = gdk_window_get_width(window);</span><br><span class="line"> <span class="keyword">int</span> height = gdk_window_get_height(window);</span><br><span class="line"> <span class="keyword">if</span>(width != <span class="number">0</span> &amp;&amp; height !=<span class="number">0</span>)</span><br><span class="line">   gtk_im_context_focus_in(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>gcc -shared -o libsublime-imfix.so sublime_imfix.c  <code>pkg-config --libs --cflags gtk+-2.0</code> -fPIC</p>
 </li>
@@ -120,7 +120,7 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://Richole.github.io/2016/01/12/sublime-text/" data-id="cijb70gk50007sujxz7u27qdx" class="article-share-link">Share</a>
+      <a data-url="http://Richole.github.io/2016/01/12/sublime-text/" data-id="cijdx2wwq0007usjxvo9dboil" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境配置/">环境配置</a></li></ul>
@@ -130,6 +130,15 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/01/14/session/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          express.js express-session
+        
+      </div>
+    </a>
   
   
     <a href="/2016/01/12/input-method/" id="article-nav-older" class="article-nav-link-wrap">
@@ -152,7 +161,7 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境配置/">环境配置</a><span class="tag-list-count">3</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node-js/">node.js</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/环境配置/">环境配置</a><span class="tag-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -161,7 +170,7 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/环境配置/" style="font-size: 15px;">环境配置</a>
+      <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/node-js/" style="font-size: 13.33px;">node.js</a> <a href="/tags/前端/" style="font-size: 20px;">前端</a> <a href="/tags/环境配置/" style="font-size: 16.67px;">环境配置</a>
     </div>
   </div>
  -->
@@ -170,7 +179,7 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
   <div class="widget-wrap">
     <h3 class="widget-title">足迹</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">10</span></li></ul>
     </div>
   </div>
 
@@ -180,6 +189,10 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
     <h3 class="widget-title">最近</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/01/14/session/">express.js express-session</a>
+          </li>
         
           <li>
             <a href="/2016/01/12/sublime-text/">解决ubuntu sublime text 中文问题</a>
@@ -195,10 +208,6 @@ sudo apt-get install build-essentialsudo apt-get install libgtk2.0-dev如果存�
         
           <li>
             <a href="/2016/01/11/Front End Skill/">Front End Skill</a>
-          </li>
-        
-          <li>
-            <a href="/2016/01/11/浏览器兼容性问题/">浏览器兼容性问题</a>
           </li>
         
       </ul>

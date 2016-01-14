@@ -2,7 +2,7 @@ title: seajs
 date: 2016-01-11 11:26:10
 tags: 前端
 ---
-
+```javascript
 //exports 暴露引入
 
 //require 引入依赖
@@ -19,3 +19,4 @@ define(function (require, exports) {
 seajs.use('dialog', function (Dialog) {
   // Todo: Dialog.init();
 });
+```
