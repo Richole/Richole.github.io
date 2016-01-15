@@ -17,7 +17,10 @@ tags: [hexo, git]
 
   7. touch gitignore #新建.gitignore
 
-  8. 设置gitignore ,ignore(/node_modules/, /.deploy_git/)
+  8. 设置gitignore
+    /node_modules/
+    /.deploy_git/
+    /public/
 
   9. hexo clean #重置hexo
 提交blog代码有两个步奏
