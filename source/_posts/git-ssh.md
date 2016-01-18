@@ -2,6 +2,10 @@ title: github/gitlab 管理多个ssh key
 date: 2016-01-18 15:46:04
 tags: git
 ---
+<h3>安装keychain管理ssh</h3>
+```bash
+sudo apt-get install keychain
+```
 <h3>生成并添加第一个ssh key</h3>
   第一次使用ssh生成key，默认会在用户~（根目录）下生成 id_rsa, id_rsa.pub 2个文件；所以需要添加多个ssh key时也会生成对应的私钥和公钥。
 
@@ -21,15 +25,32 @@ ssh-keygen -t rsa -C "youremail@yourcompany.com" #注意不要一路回车，要
 ```bash
 ssh-add ~/.ssh/id_rsa
 ssh-add ~/.ssh/id_rsa_github
-```
+
 
 如果执行ssh-add时提示"Could not open a connection to your authentication agent"，可以现执行命令：
-
-```bash
 ssh-agent bash
-ssh-add ~/.ssh/id_rsa
-ssh-add ~/.ssh/id_rsa_github
+再执行ssh-add
+```
 
+<h3>配置ssh配置文件</h3>
+```bash
+#如果.ssh目录不存在config文件
+touch config
+编辑config
+# gitlab
+Host gitlab
+    HostName gitlab.xtremeprog.com
+    IdentityFile ~/.ssh/id_rsa_github_120831070
+
+# github
+Host github
+    HostName github.com
+    IdentityFile ~/.ssh/id_rsa
+```
+<h3>keychain管理ssh</h3>
+keychain ~/.ssh/id_rsa
+keychain ~/.ssh/id_rsa_github
+```bash
 # 可以通过 ssh-add -l 来确私钥列表
 ssh-add -l
 
@@ -38,4 +59,7 @@ ssh-add -D
 
 #测试github.com
 ssh -T git@github.com
+
+#测试gitlab.com
+ssh -T git@gitlab.com
 ```
