@@ -7,3 +7,4 @@ tags: 前端
 
 <h3>Javascript</h3>
   1.判断变量是否存在，不能用if(未定义变量)，可以用window.aa代替。
+  
