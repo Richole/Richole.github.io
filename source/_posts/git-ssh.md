@@ -48,9 +48,9 @@ Host github
     IdentityFile ~/.ssh/id_rsa
 ```
 <h3>keychain管理ssh</h3>
+```bash
 keychain ~/.ssh/id_rsa
 keychain ~/.ssh/id_rsa_github
-```bash
 # 可以通过 ssh-add -l 来确私钥列表
 ssh-add -l
 
