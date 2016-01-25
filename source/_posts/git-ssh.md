@@ -73,3 +73,11 @@ TCPKeepAlive yes
 #每5分钟发送一次心跳包,保持连接
 ServerAliveInterval 300
 ```
+<h3>ssh免密码登陆服务器</h3>
+```bash
+#方法:客户端保留私钥,将公钥追加保存在服务器的authorized_keys文件上
+#ssh-keygen -t rsa #创建公私钥对,最好修改名字
+#将公钥XXX.pub文件保存到服务器中的～/.ssh/authorized_keys,如果不存在文件则touch命令新建
+#确保该文件的权限为-rw-r--r--,如果不是执行命令chmod 644 authorized_keys修改权限,
+#最后重启服务 service ssh restart
+```
