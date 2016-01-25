@@ -45,3 +45,7 @@ git clone https://github.com/creationix/nvm.git ~/.nvm
 然后打开~/.bash_profile文件，在其中添加：source ~/.nvm/nvm.sh
 nvm install (node的版本号)
 然后ln -s 源文件 目标文件 设置软连接到/usr/sbin里
+nvm alias default stable
+设置nvm默认版本
+npm config set strict-ssl false
+npm config set registry "http://registry.npmjs.org/" #加快npm下载速度
