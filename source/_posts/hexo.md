@@ -23,7 +23,10 @@ tags: [hexo, git]
     /public/
     /db.json
 
-  9. hexo clean #重置hexo
+  9. 修改hexo免密码登陆
+    修改_config.yml repository: github ssh地址
+    
+  10. hexo clean #重置hexo
 提交blog代码有两个步奏
 
   1. 若要重新部署Blog, hexo g, hexo d #hexo 默认推送代码到master，可在_config.yml更改
