@@ -63,3 +63,13 @@ ssh -T git@github.com
 #测试gitlab.com
 ssh -T git@gitlab.com
 ```
+<h3>ssh远程连接的持久连接配置</h3>
+```bash
+#修改ssh的配置文件
+sudo vim /etc/ssh/ssh_config
+#添加两个参数
+#保持TCP连接
+TCPKeepAlive yes
+#每5分钟发送一次心跳包,保持连接
+ServerAliveInterval 300
+```

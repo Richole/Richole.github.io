@@ -21,6 +21,7 @@ tags: [hexo, git]
     /node_modules/
     /.deploy_git/
     /public/
+    /db.json
 
   9. hexo clean #重置hexo
 提交blog代码有两个步奏
