@@ -13,8 +13,8 @@ express.js
       secret: '12345',
       name: 'testapp',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
       cookie: {maxAge: 80000 },  //设置maxAge是80000ms，即80s后session和相应的cookie失效过期，如果不设置则，浏览器关闭失效
-      resave: false,
-      saveUninitialized: true,
+      resave: false, //是指每次请求都重新设置session cookie，假设你的cookie是10分钟过期，每次请求都会再设置10分钟
+      saveUninitialized: true //是指无论有没有session cookie，每次请求都设置个session cookie ，默认给个标示为 connect.sid
   }));
 ```
 一旦我们将express-session中间件用use挂载后，我们可以很方便的通过req参数来存储和访问session对象的数据。req.session是一个JSON格式的JavaScript对象，我们可以在使用的过程中随意的增加成员，这些成员会自动的被保存到option参数指定的地方，默认即为内存中去。
