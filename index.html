@@ -60,43 +60,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/04/04/test/" class="article-date">
-  <time datetime="2016-04-04T10:37:09.000Z" itemprop="datePublished">2016-04-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/04/test/">test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>fdsafdsaf<br>fdsafdsafdsafass</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://Richole.github.io/2016/04/04/test/" data-id="cimlviydh000q4gjxljcnngzh" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-atom" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/22/atom/" class="article-date">
@@ -468,6 +431,67 @@
 
 
   
+    <article id="post-sublime-text" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/12/sublime-text/" class="article-date">
+  <time datetime="2016-01-12T09:17:08.000Z" itemprop="datePublished">2016-01-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/12/sublime-text/">解决ubuntu sublime text 中文问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>首先要安装好linux搜狗输入法</p>
+</li>
+<li><p>sudo apt-get install aptitude #安装aptitude解决依赖冲突问题</p>
+</li>
+<li><p>sudo apt-get install build-essential<br>sudo apt-get install libgtk2.0-dev<br>如果存在依赖冲突<br>sudo aptitude install build-essential<br>sudo aptitude install libgtk2.0-dev</p>
+</li>
+<li><p>保存下面的代码到文件sublime_imfix.c(位于~目录)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;gtk/gtkimcontext.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gtk_im_context_set_client_window</span> <span class="params">(GtkIMContext *context,</span><br><span class="line">         GdkWindow    *window)</span></span><br><span class="line"></span>&#123;</span><br><span class="line"> GtkIMContextClass *klass;</span><br><span class="line"> g_return_if_fail (GTK_IS_IM_CONTEXT (context));</span><br><span class="line"> klass = GTK_IM_CONTEXT_GET_CLASS (context);</span><br><span class="line"> <span class="keyword">if</span> (klass-&gt;set_client_window)</span><br><span class="line">   klass-&gt;set_client_window (context, window);</span><br><span class="line"> g_object_set_data(G_OBJECT(context),<span class="string">"window"</span>,window);</span><br><span class="line"> <span class="keyword">if</span>(!GDK_IS_WINDOW (window))</span><br><span class="line">   <span class="keyword">return</span>;</span><br><span class="line"> <span class="keyword">int</span> width = gdk_window_get_width(window);</span><br><span class="line"> <span class="keyword">int</span> height = gdk_window_get_height(window);</span><br><span class="line"> <span class="keyword">if</span>(width != <span class="number">0</span> &amp;&amp; height !=<span class="number">0</span>)</span><br><span class="line">   gtk_im_context_focus_in(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>gcc -shared -o libsublime-imfix.so sublime_imfix.c  <code>pkg-config --libs --cflags gtk+-2.0</code> -fPIC</p>
+</li>
+<li><p>sudo mv libsublime-imfix.so /opt/sublime_text/</p>
+</li>
+<li><p>修改文件/usr/bin/subl的内容<br>sudo gedit /usr/bin/subl<br>将<br>#!/bin/sh<br>exec /opt/sublime_text/sublime_text “$@”<br>修改为<br>#!/bin/sh<br>LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text “$@”<br>此时，在命令中执行 subl 将可以使用搜狗for linux的中文输入</p>
+</li>
+<li><p>为了使用鼠标右键打开文件时能够使用中文输入。<br>还需要修改文件sublime_text.desktop的内容。<br>sudo gedit /usr/share/applications/sublime_text.desktop</p>
+<p>将[Desktop Entry]中的字符串<br>Exec=/opt/sublime_text/sublime_text %F<br>修改为<br>Exec=bash -c “LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text %F”</p>
+<p>将[Desktop Action Window]中的字符串<br>Exec=/opt/sublime_text/sublime_text -n<br>修改为<br>Exec=bash -c “LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text -n”</p>
+<p>将[Desktop Action Document]中的字符串<br>Exec=/opt/sublime_text/sublime_text –command new_file<br>修改为<br>Exec=bash -c “LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text –command new_file”</p>
+<p>注意：<br>修改时请注意双引号””,否则会导致不能打开带有空格文件名的文件。<br>此处仅修改了/usr/share/applications/sublime-text.desktop，但可以正常使用了。<br>opt/sublime_text/目录下的sublime-text.desktop可以修改，也可不修改。</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://Richole.github.io/2016/01/12/sublime-text/" data-id="cimlviydf000o4gjx7hizqm5n" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/环境配置/">环境配置</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -501,7 +525,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">足迹</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">14</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">14</span></li></ul>
     </div>
   </div>
 
@@ -511,10 +535,6 @@
     <h3 class="widget-title">最近</h3>
     <div class="widget">
       <ul>
-        
-          <li>
-            <a href="/2016/04/04/test/">test</a>
-          </li>
         
           <li>
             <a href="/2016/03/22/atom/">atom配置</a>
@@ -530,6 +550,10 @@
         
           <li>
             <a href="/2016/02/15/exports/">exports</a>
+          </li>
+        
+          <li>
+            <a href="/2016/01/20/mongodb/">mongodb配置及常用命令</a>
           </li>
         
       </ul>
