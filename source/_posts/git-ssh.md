@@ -79,7 +79,7 @@ ssh -o ServerAliveInterval=300 IP地址
 
 2、在服务端
 编辑服务器 /etc/ssh/sshd_config，最后增加
-ClientAliveInterval 3000
+ClientAliveInterval 300
 ClientAliveCountMax 1
 这样，SSH Server 每 60 秒就会自动发送一个信号给 Client，而等待 Client 回应
 ```
