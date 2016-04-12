@@ -65,13 +65,23 @@ ssh -T git@gitlab.com
 ```
 <h3>ssh远程连接的持久连接配置</h3>
 ```bash
-#修改ssh的配置文件
-sudo vim /etc/ssh/ssh_config
-#添加两个参数
+解决：（2种办法）
+1、在客户端配置
+#vi  /etc/ssh/ssh_config（注意不是/etc/ssh/sshd_config文件）,后面添加
+Host *
 #保持TCP连接
 TCPKeepAlive yes
 #每5分钟发送一次心跳包,保持连接
 ServerAliveInterval 300
+这表示要让所有的ssh连接自动加上此属性；如果要指定服务端，如下：
+使用-o的参数ServerAliveInterval来设置一个防止超时的时间
+ssh -o ServerAliveInterval=300 IP地址
+
+2、在服务端
+编辑服务器 /etc/ssh/sshd_config，最后增加
+ClientAliveInterval 3000
+ClientAliveCountMax 1
+这样，SSH Server 每 60 秒就会自动发送一个信号给 Client，而等待 Client 回应
 ```
 <h3>ssh免密码登陆服务器</h3>
 ```bash
